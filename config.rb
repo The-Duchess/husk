@@ -12,58 +12,56 @@
 # This is the Config File for husk
 #########################################################################################
 
-load 'rirc.rb'
-
 module Config_var
 
       # irc server address
-      network = "irc.freenode.net"
+      @network = "irc.freenode.net"
 
       # irc server port
-      port = 6697
+      @port = 6697
 
       # whether the irc bot should use ssl or not
-      use_ssl = true
+      @use_ssl = true
 
       # irc server password
-      pass = ""
+      @pass = ""
 
       # irc bot nickname
-      nick = "husk"
+      @nick = "husk"
 
       # irc bot user name
-      username = "rircbot"
+      @username = "rircbot"
 
       # irc bot real name
-      realname = "rircbot"
+      @realname = "rircbot"
 
       # whether the irc bot should use a password for the irc server or not
-      use_pass = false
+      @use_pass = false
 
       # irc bot nickserv password
-      nickserv_pass = ""
+      @nickserv_pass = ""
 
       # nick for core control reloading
-      dev_admin = "YOURNICK"
+      @dev_admin = "YOURNICK"
 
       # channels for the irc bot to join
-      channels = ["#YOURCHANNEL"]
+      @channels = ["#YOURCHANNEL"]
 
       # list of admins by nick
-      admins = ["YOURNICK", "YOUROTHERNICK"]
+      @admins = ["YOURNICK", "YOUROTHERNICK"]
 
       # list of ignored nicks
-      ignore_list = []
+      @ignore_list = []
 
       # list of plugins to load
-      plugins_list = ["cat.rb", "youtube.rb"]
+      @plugins_list = ["cat.rb", "youtube.rb"]
 
       # file path to plugin directory
-      plugin_dir = "./plugins"
+      @plugin_dir = "./plugins"
 
       # regexes used to call command functions
       # unless you are going to modify commands.rb do not touch this
-      command_prefix = [
+      @command_prefix = [
                         /^`info$/,
                         /^`join ##?/,
                         /^`part$/,
