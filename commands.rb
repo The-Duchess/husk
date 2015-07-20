@@ -27,7 +27,10 @@ module Command_mod
                               /^`reload /,
                               /^`list$/,
                               /^`list channels$/,
-                              /^`list admins$/
+                              /^`list admins$/,
+                              /^`ignore /,
+                              /^`unignore /,
+                              /^`list ignore/
                              ]
 
                              #/^`ignore /,
@@ -74,6 +77,12 @@ module Command_mod
                                     list_channels(message, bot)
                               elsif i == 12
                                     list_admins(message, bot)
+                              elsif i == 13
+                                    ignore(message, bot)
+                              elsif i == 14
+                                    unignore(message, bot)
+                              elsif i == 15
+                                    list_ignore(message, bot)
                               else
                                     # oh shit
                               end
@@ -213,17 +222,42 @@ module Command_mod
             bot.admins.each { |a| bot.notice(message.nick, "  ↪ #{a}") }
       end
 
-      #def ignore(message)
+      def ignore(message, bot)
 
-      #end
+            if !bot.admins.include? message.nick
+                  warn(message.nick, bot)
+                  return
+            end
 
-      #def unignore(message)
+            tokens = message.message.split(" ")
 
-      #end
+            bot.add_ignore(tokens[1].to_s)
+            bot.notice(message.nick, "#{tokens[1]} added to ignore list")
+      end
 
-      #def list_ignore(message)
+      def unignore(message, bot)
 
-      #end
+            if !bot.admins.include? message.nick
+                  warn(message.nick, bot)
+                  return
+            end
+
+            tokens = message.message.split(" ")
+
+            bot.remove_ignore(tokens[1].to_s)
+            bot.notice(message.nick, "#{tokens[1]} removed from ignore list")
+      end
+
+      def list_ignore(message, bot)
+
+            if !bot.admins.include? message.nick
+                  warn(message.nick, bot)
+                  return
+            end
+
+            bot.notice(message.nick, "List of Ignored Users")
+            bot.ignore.each { |a| bot.notice(message.nick, "  ↪ #{a}") }
+      end
 
       #def send_msg(message)
 
