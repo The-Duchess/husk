@@ -27,7 +27,10 @@ module Command_mod
                               /^`reload /,
                               /^`list$/,
                               /^`list channels$/,
-                              /^`list admins$/
+                              /^`list admins$/,
+                              /^`ignore /,
+                              /^`unignore /,
+                              /^`list ignore/
                              ]
 
                              #/^`ignore /,
@@ -213,17 +216,17 @@ module Command_mod
             bot.admins.each { |a| bot.notice(message.nick, "  ↪ #{a}") }
       end
 
-      #def ignore(message)
+      def ignore(message, bot)
 
-      #end
+      end
 
-      #def unignore(message)
+      def unignore(message, bot)
 
-      #end
+      end
 
-      #def list_ignore(message)
+      def list_ignore(message, bot)
 
-      #end
+      end
 
       #def send_msg(message)
 
