@@ -16,28 +16,6 @@
 
 load 'rirc.rb'
 
-# regexes used to call command functions
-command_prefix = [
-                  /^`info$/,
-                  /^`join ##?/,
-                  /^`part$/,
-                  /^`plsgo$/,
-                  /^`help /,
-                  /^`help$/,
-                  /^`load /,
-                  /^`unload /,
-                  /^`reload /,
-                  /^`list$/,
-                  /^`list channels$/,
-                  /^`list admins$/
-                 ]
-
-                 #/^`ignore /,
-                 #/^`unignore /,
-                 #/^`list ignore/,
-                 #/^`msg /,
-                 #/^`act /,
-
 def warn(name)
       bot.notice(name, "You are not in the admin list, please contact an admin for help.")
       bot.notice(name, "admins:")
@@ -102,7 +80,7 @@ end
 
 def join(message)
 
-      if !admins.include? message.nick
+      if !bot.admins.include? message.nick
             warn(message.nick)
             return
       end
@@ -117,7 +95,7 @@ end
 
 def part(message)
 
-      if !admins.include? message.nick
+      if !bot.admins.include? message.nick
             warn(message.nick)
             return
       end
@@ -127,7 +105,7 @@ end
 
 def quit(message)
 
-      if !admins.include? message.nick
+      if !bot.admins.include? message.nick
             warn(message.nick)
             return
       end
@@ -157,7 +135,7 @@ end
 
 def load_p(message)
 
-      if !admins.include? message.nick
+      if !bot.admins.include? message.nick
             warn(message.nick)
             return
       end
@@ -169,7 +147,7 @@ end
 
 def unload(message)
 
-      if !admins.include? message.nick
+      if !bot.admins.include? message.nick
             warn(message.nick)
             return
       end
@@ -181,7 +159,7 @@ end
 
 def reload(message)
 
-      if !admins.include? message.nick
+      if !bot.admins.include? message.nick
             warn(message.nick)
             return
       end

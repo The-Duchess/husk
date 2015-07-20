@@ -14,47 +14,73 @@
 
 load 'rirc.rb'
 
-# irc server address
-network = "irc.freenode.net"
+module Config_var
 
-# irc server port
-port = 6697
+      # irc server address
+      network = "irc.freenode.net"
 
-# whether the irc bot should use ssl or not
-use_ssl = true
+      # irc server port
+      port = 6697
 
-# irc server password
-pass = ""
+      # whether the irc bot should use ssl or not
+      use_ssl = true
 
-# irc bot nickname
-nick = "husk"
+      # irc server password
+      pass = ""
 
-# irc bot user name
-username = "rircbot"
+      # irc bot nickname
+      nick = "husk"
 
-# irc bot real name
-realname = "rircbot"
+      # irc bot user name
+      username = "rircbot"
 
-# whether the irc bot should use a password for the irc server or not
-use_pass = false
+      # irc bot real name
+      realname = "rircbot"
 
-# irc bot nickserv password
-nickserv_pass = ""
+      # whether the irc bot should use a password for the irc server or not
+      use_pass = false
 
-# nick for core control reloading
-dev_admin = "YOURNICK"
+      # irc bot nickserv password
+      nickserv_pass = ""
 
-# channels for the irc bot to join
-channels = ["#YOURCHANNEL"]
+      # nick for core control reloading
+      dev_admin = "YOURNICK"
 
-# list of admins by nick
-admins = ["YOURNICK", "YOUROTHERNICK"]
+      # channels for the irc bot to join
+      channels = ["#YOURCHANNEL"]
 
-# list of ignored nicks
-ignore_list = []
+      # list of admins by nick
+      admins = ["YOURNICK", "YOUROTHERNICK"]
 
-# list of plugins to load
-plugins_list = ["cat.rb", "youtube.rb"]
+      # list of ignored nicks
+      ignore_list = []
 
-# file path to plugin directory
-plugin_dir = "./plugins"
+      # list of plugins to load
+      plugins_list = ["cat.rb", "youtube.rb"]
+
+      # file path to plugin directory
+      plugin_dir = "./plugins"
+
+      # regexes used to call command functions
+      # unless you are going to modify commands.rb do not touch this
+      command_prefix = [
+                        /^`info$/,
+                        /^`join ##?/,
+                        /^`part$/,
+                        /^`plsgo$/,
+                        /^`help /,
+                        /^`help$/,
+                        /^`load /,
+                        /^`unload /,
+                        /^`reload /,
+                        /^`list$/,
+                        /^`list channels$/,
+                        /^`list admins$/
+                       ]
+
+                       #/^`ignore /,
+                       #/^`unignore /,
+                       #/^`list ignore/,
+                       #/^`msg /,
+                       #/^`act /,
+end
