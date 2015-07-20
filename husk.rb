@@ -58,12 +58,10 @@ def main
             puts "Connecting Using a password, #{configs.pass}"
       end
 
-      to_ignore = []
-
       if configs.ignore_list.length != 0
             puts "Creating Ignore List"
             configs.ignore_list.each do |a|
-                  to_ignore.push(a)
+                  bot.add_ignore(a)
                   puts "	↪ #{a}"
             end
       end
