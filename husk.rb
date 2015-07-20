@@ -21,7 +21,7 @@ def main
 
       # regexes used to call command functions
       # unless you are going to add command functions to commands do not touch this
-      $command_prefix = [
+      command_prefix = [
                         /^`info$/,
                         /^`join ##?/,
                         /^`part$/,
