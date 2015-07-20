@@ -9,6 +9,8 @@ class Git_pull < Pluginf
 
 	def script(message, admins, backlog)
 
+		if !admins.include? message.nick then return notice(message.nick, "You are not in the admin list, please contact an admin for help.") end
+
 		`git pull`
 		return notice(message.nick, "pull completed")
 	end

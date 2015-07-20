@@ -36,7 +36,7 @@ class Sys_status < Pluginf
 		# return "PRIVMSG #{message.chan} :hello"
 		# or you can use functions to simplify this
 		# some are provided below
-		return privmsg(message.chan, "hello")
+		return privmsg(message.chan, status)
 	end
 
 	def privmsg(dest, message)
