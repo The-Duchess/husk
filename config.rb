@@ -30,7 +30,7 @@ module Config_var
       attr_accessor :plugins_list
       attr_accessor :plugin_dir
       attr_accessor :command_prefix
-      
+
       def initialize
             # irc server address
             @network = "irc.freenode.net"
@@ -76,28 +76,5 @@ module Config_var
 
             # file path to plugin directory
             @plugin_dir = "./plugins"
-
-            # regexes used to call command functions
-            # unless you are going to modify commands.rb do not touch this
-            @command_prefix = [
-                              /^`info$/,
-                              /^`join ##?/,
-                              /^`part$/,
-                              /^`plsgo$/,
-                              /^`help /,
-                              /^`help$/,
-                              /^`load /,
-                              /^`unload /,
-                              /^`reload /,
-                              /^`list$/,
-                              /^`list channels$/,
-                              /^`list admins$/
-                             ]
-
-                             #/^`ignore /,
-                             #/^`unignore /,
-                             #/^`list ignore/,
-                             #/^`msg /,
-                             #/^`act /,
       end
 end

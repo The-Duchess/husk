@@ -13,6 +13,29 @@
 require_relative 'rirc.rb'
 require_relative 'config.rb'
 
+# regexes used to call command functions
+# unless you are going to add command functions to commands do not touch this
+command_prefix = [
+                  /^`info$/,
+                  /^`join ##?/,
+                  /^`part$/,
+                  /^`plsgo$/,
+                  /^`help /,
+                  /^`help$/,
+                  /^`load /,
+                  /^`unload /,
+                  /^`reload /,
+                  /^`list$/,
+                  /^`list channels$/,
+                  /^`list admins$/
+                 ]
+
+                 #/^`ignore /,
+                 #/^`unignore /,
+                 #/^`list ignore/,
+                 #/^`msg /,
+                 #/^`act /,
+
 class Config_obj
       include Config_var
 end
@@ -98,7 +121,7 @@ end
 # returns true if any functions were used
 def commands(message)
 
-      commands_reg = Regexp.union(configs.command_prefix)
+      commands_reg = Regexp.union(command_prefix)
       if message.message_regex(commands_reg)
             i = 1
             configs.command_prefix.each do |a|
