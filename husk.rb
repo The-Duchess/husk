@@ -80,7 +80,10 @@ until bot.socket.eof? do
 	else
             if msg.message_regex(/^`core refresh$/) and msg.nick == dev_admin
                   load 'commands.rb'
+                  next
             end
+
+            if commands(msg) then next end
 
             responses = plug.check_all(msg, admins, backlog)
 

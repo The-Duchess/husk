@@ -16,6 +16,7 @@
 
 load 'rirc.rb'
 
+# regexes used to call command functions
 command_prefix = [
                   /^`info$/,
                   /^`join ##?/,
@@ -38,6 +39,7 @@ command_prefix = [
                  ]
 
 # based on message.message_regex(command_prefix[i]) call appropriate functions
+# returns true if any functions were used
 def commands(message)
 
 end
