@@ -37,7 +37,7 @@ class Sys_status < Pluginf
 		# or you can use functions to simplify this
 		# some are provided below
             @res = status
-		return privmsg(message.chan, @res)
+		return privmsg(message.channel, @res)
 	end
 
 	def privmsg(dest, message)
