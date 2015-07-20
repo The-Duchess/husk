@@ -100,21 +100,29 @@ def main
       # based on message.message_regex(command_prefix[i]) call appropriate functions
       # returns true if any functions were used
 
+      `touch log`
+
       until bot.socket.eof? do
       	ircmsg = bot.read
       	msg = bot.parse(ircmsg)
 
+            if message.channel == message.nick
+                  File.write("./log", ircmsg, File.size("./res/log"), mode: 'a')
+            end
+
       	if ircmsg == "PING" or bot.nick_name == msg.nick or bot.ignore.include? msg.nick
       		next
       	else
+
                   if msg.message_regex(/^`core refresh$/) and msg.nick == configs.dev_admin
                         load 'commands.rb'
                         cmds = Command_obj.new
                         bot.notice(msg.nick, "Core Reloaded")
+                        File.write("./log", ircmsg, File.size("./res/log"), mode: 'a')
                         next
                   end
 
-                  if cmds.commands(msg, bot, plug) then next end
+                  if cmds.commands(msg, bot, plug) then File.write("./log", ircmsg, File.size("./res/log"), mode: 'a'); next; end
 
                   responses = plug.check_all(msg, bot.admins, backlog)
 
