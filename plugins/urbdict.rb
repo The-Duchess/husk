@@ -7,11 +7,14 @@
 require 'cgi'
 require 'json'
 require 'open-uri'
+require 'openssl'
 load 'rirc.rb'
 
 class UrbDict < Pluginf
 	#any functions you may need
 	#retrieves the first description
+	begin
+		http = Net::HTTP.new()
 
 	#your definition for script
 	def script(message, admins, backlog)
@@ -20,7 +23,11 @@ class UrbDict < Pluginf
 		@srh = ""
 		@rt = ""
 		message.message[4..-1].split(" ").each { |a| @srh.concat("#{a.to_s}+")}
-		uri = "https://api.urbandictionary.com/v0/define?term=%s" % @srh
+		uri = "http://api.urbandictionary.com/v0/define?term=%s" % @srh
+
+		http = Net::HTTP.new(host,port)
+		http.use_ssl = true
+		http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
 		begin
 			open(uri) do |f|
