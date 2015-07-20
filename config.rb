@@ -29,7 +29,6 @@ module Config_var
       attr_accessor :ignore_list
       attr_accessor :plugins_list
       attr_accessor :plugin_dir
-      attr_accessor :command_prefix
 
       def initialize
             # irc server address
