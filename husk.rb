@@ -111,6 +111,8 @@ def main
       		next
       	else
 
+                  backlog.push(msg)
+
                   if msg.message_regex(/^`core refresh$/) and msg.nick == configs.dev_admin
                         load 'commands.rb'
                         cmds = Command_obj.new
