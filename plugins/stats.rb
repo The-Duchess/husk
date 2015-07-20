@@ -3,14 +3,10 @@
 # author: apels <Alice Duchess>
 #############################################################################################
 
-# note: example code does not actually run
-# a running example should be posted soon
-
 load 'rirc.rb'
 
 class Sys_status < Pluginf
 
-	# any functions you may need can be included here
       def status
             #hostname
             host = `hostname`.to_s.chomp!
@@ -33,10 +29,6 @@ class Sys_status < Pluginf
 
 	def script(message, admins, backlog)
 
-		# plugins must return the raw mesaage they wish to have sent to the socket
-		# return "PRIVMSG #{message.chan} :hello"
-		# or you can use functions to simplify this
-		# some are provided below
             @res = status
 		return privmsg(message.channel, @res)
 	end
@@ -54,15 +46,6 @@ class Sys_status < Pluginf
 	end
 end
 
-# allows you to support multiple regexes
-# prefix = [
-#		//,
-#		//
-#	   ]
-#
-# reg_p = Regexp.union(prefix)
-
-# information the plugin needs to be initialized with
 reg = /^`status$/ # regex to call the plugin
 filename = "stats.rb" # file name
 pluginname = "stats" # name for plugin

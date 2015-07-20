@@ -121,12 +121,23 @@ def main
 
                   backlog.push(msg)
 
-                  if msg.message_regex(/^`core refresh$/) and msg.nick == configs.dev_admin
-                        load 'commands.rb'
-                        cmds = Command_obj.new
-                        bot.notice(msg.nick, "Core Reloaded")
-                        File.write("./log", ircmsg, File.size("./log"), mode: 'a')
-                        next
+                  if msg.message_regex(/^`core refresh$/)
+
+                        if !msg.nick == configs.dev_admin then
+
+                              bot.notice(msg.nick, "You are not the main admin, please contact an admin for help.")
+                              bot.notice(msg.nick, "The Main admin is #{configs.dev_admin}")
+                              next
+
+                        else
+
+                              load 'commands.rb'
+                              cmds = Command_obj.new
+                              bot.notice(msg.nick, "Core Reloaded")
+                              File.write("./log", ircmsg, File.size("./log"), mode: 'a')
+                              next
+
+                        end
                   end
 
                   if cmds.commands(msg, bot, plug) then File.write("./log", ircmsg, File.size("./log"), mode: 'a'); next; end
