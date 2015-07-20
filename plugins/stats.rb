@@ -28,7 +28,6 @@ class Sys_status < Pluginf
 
             #Server Aika up 18d 01h 32m 43s, 675 TCP connections, 146 processes, 17.1GB/64GB RAM in use.
             @r =  "Server \x0303#{host}\x03 up \x0303#{uptime}\x03, \x0303#{processes}\x03 Processes, \x0303#{percent_mem}\x03% of \x0303#{total_mem}\x03 MB of Memory Used, CPU utilization: \x0303#{cpu_use}\x03%"
-            p @r
             return @r
       end
 
@@ -64,7 +63,7 @@ end
 # reg_p = Regexp.union(prefix)
 
 # information the plugin needs to be initialized with
-reg = /^`stats$/ # regex to call the plugin
+reg = /^`status$/ # regex to call the plugin
 filename = "stats.rb" # file name
 pluginname = "stats" # name for plugin
 description = "`status gives host status" # description and or help
