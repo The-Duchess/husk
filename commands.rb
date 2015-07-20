@@ -28,13 +28,15 @@ command_prefix = [
                   /^`unload /,
                   /^`reload /,
                   /^`list$/,
-                  /^`ignore /,
-                  /^`unignore /,
-                  /^`list ignore/,
-                  /^`msg /,
-                  /^`act /,
-                  /^`list channels$/
+                  /^`list channels$/,
+                  /^`list admins$/
                  ]
+
+                 #/^`ignore /,
+                 #/^`unignore /,
+                 #/^`list ignore/,
+                 #/^`msg /,
+                 #/^`act /,
 
 def warn(name)
       bot.notice(name, "You are not in the admin list, please contact an admin for help.")
@@ -54,7 +56,6 @@ def commands(message)
       end
 
       return true
-
 end
 
 def info
@@ -78,6 +79,7 @@ def join(message)
       if !tokens[1].to_s.match("/^#/") then bot.notice(message.nick, "#{tokens[1] is an invalid channel name}"); return; end
 
       bot.join("#{tokens[1]}")
+      # bot.notice("#{tokens[1]}", "hello: for help with this bot use `help")
 end
 
 def part(message)
@@ -102,46 +104,101 @@ def quit(message)
       abort
 end
 
-def help(message)
+def help_plugin(message)
 
+      tokens = message.message.split(" ")
+      help = plug.plugin_help(tokens[1])
+      if help != nil
+            bot.notice(message.nick, help)
+      else
+            bot.notice(message.nick, "plugin #{tokens[1]} not found")
+      end
+end
+
+def help(message)
+      bot.notice(message.nick, "commands")
+      bot.notice(message.nick, "  ↪ `help <plugin name> : help on the plugin")
+      bot.notice(message.nick, "  ↪ `info : for information on the bot")
+      bot.notice(message.nick, "  ↪ `list : lists active plugins by name")
 end
 
 def load(message)
 
+      if !admins.include? message.nick
+            warn(message.nick)
+            return
+      end
+
+      tokens = message.message.split(" ")
+      response = plug.plugin_load(tokens[1])
+      bot.notice(message.nick, response)
 end
 
 def unload(message)
 
+      if !admins.include? message.nick
+            warn(message.nick)
+            return
+      end
+
+      tokens = message.message.split(" ")
+      response = plug.unload(tokens[1])
+      bot.privmsg(message.nick, response)
 end
 
 def reload(message)
 
+      if !admins.include? message.nick
+            warn(message.nick)
+            return
+      end
+
+      tokens = message.message.split(" ")
+      response = plug.reload(tokens[1])
+      bot.notice(message.nick, response)
 end
 
 def list_plugins(message)
 
+      if plug.get_names.length == 0 then bot.notice(message.nick, "no plugins are loaded"); return; end
+
+      bot.notice(message.nick, "Loaded Plugins")
+      plug.get_names.each { |a| bot.notice(message.nick, "  ↪ #{a}") }
 end
 
-def ignore(message)
+#def ignore(message)
 
-end
+#end
 
-def unignore(message)
+#def unignore(message)
 
-end
+#end
 
-def list_ignore(message)
+#def list_ignore(message)
 
-end
+#end
 
-def send_msg(message)
+#def send_msg(message)
 
-end
+#end
 
-def send_act(message)
+#def send_act(message)
 
-end
+#end
 
 def list_channels(message)
 
+      if bot.channels.length == 0 then bot.notice(message.nick, "#{bot.nick_name} is not in any channels"); return; end
+
+      bot.notice(message.nick, "Active Chans")
+      bot.channels.each { |a| bot.notice(message.nick, "  ↪ #{a}") }
+
+end
+
+def list_admins
+
+      if bot.admins.length == 0 then bot.notice(message.nick, "#{bot.nick_name} does not have any admins"); return; end
+
+      bot.notice(message.nick, "Admins")
+      bot.admins.each { |a| bot.notice(message.nick, "  ↪ #{a}") }
 end
