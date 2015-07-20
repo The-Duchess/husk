@@ -23,10 +23,6 @@ class UrbDict < Pluginf
 		message.message[4..-1].split(" ").each { |a| @srh.concat("#{a.to_s}+")}
 		uri = "http://api.urbandictionary.com/v0/define?term=%s" % @srh
 
-		http = Net::HTTP.new(host,port)
-		http.use_ssl = true
-		http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
 		begin
 			open(uri) do |f|
 				obj = JSON.parse(f.read)
