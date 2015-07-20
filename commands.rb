@@ -33,9 +33,6 @@ module Command_mod
                               /^`list ignore/
                              ]
 
-                             #/^`ignore /,
-                             #/^`unignore /,
-                             #/^`list ignore/,
                              #/^`msg /,
                              #/^`act /,
       end

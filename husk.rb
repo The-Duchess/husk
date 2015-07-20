@@ -23,18 +23,18 @@ def main
       configs = Config_obj.new
 
       # create the bot
-      print "creating bot... "
+      print "Creating Bot... "
       STDOUT.flush
       bot = IRCBot.new(configs.network, configs.port, configs.nick, configs.username, configs.realname)
       puts "done"
 
-      print "creating the core... "
+      print "Creating the Core... "
       STDOUT.flush
       cmds = Command_obj.new
       puts "done"
 
       # create the plugin manager and tell it where to look for plugins
-      print "creating plugin manager... "
+      print "Creating Plugin Manager... "
       STDOUT.flush
       plug = Plugin_manager.new(configs.plugin_dir)
       puts "done"
@@ -70,7 +70,9 @@ def main
       puts "	↪ nick = #{bot.nick_name}"
       puts "	↪ username = #{bot.user_name}"
       puts "	↪ realname = #{bot.real_name}"
-      puts "	↪ identifying with #{configs.nickserv_pass}"
+      if configs.nickserv_pass != ""
+            puts "	↪ identifying with #{configs.nickserv_pass}"
+      end
 
       # joining channels
       puts "Joining"
@@ -88,16 +90,22 @@ def main
       	puts plug.plugin_load(a)
       end
 
-      puts "Creating Backlog"
+      puts "Creating Backlog... "
+      STDOUT.flush
       backlog = []
+      puts "done"
+
+      if not File.exist?("./log")
+            print "Creating Command and Privmsg Log File... "
+            STDOUT.flush
+            File.open("./log", "w+") { |fw| fw.write("Command and Privmsg LOGS") }
+            puts "done"
+      else
+            puts "Command and Privmsg Log File Exists"
+      end
 
       # the main loop for the socket
       puts "Starting #{bot.nick_name}"
-
-      # based on message.message_regex(command_prefix[i]) call appropriate functions
-      # returns true if any functions were used
-
-      `touch ./log`
 
       until bot.socket.eof? do
       	ircmsg = bot.read
