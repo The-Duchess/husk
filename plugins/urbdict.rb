@@ -29,13 +29,13 @@ class UrbDict < Pluginf
 				obj = JSON.parse(f.read)
 				if obj['list'].empty?
 					@r = "No result"
-					return @r
+					return privmsg(message.channel, @r)
 				else
 					@rt = obj['list'][0]['definition'].gsub(/(\r\n)+/, ' ').to_s
 				end
 		end
 		rescue => e
-			return "an error has happened"
+			return privmsg(message.channel, "an error has happened")
 		end
 
 		@parts = []
@@ -47,7 +47,7 @@ class UrbDict < Pluginf
 		i = 0
 		0.upto(len_a) do |a|
 			if @rt.length <= len
-				return @rt.to_s
+				return privmsg(message.channel, @rt.to_s)
 			end
 
 			if(@rt[a..-1].to_s.length <= len)
