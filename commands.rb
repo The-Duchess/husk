@@ -20,9 +20,7 @@ load 'rirc.rb'
 command_prefix = [
                   /^`info$/,
                   /^`join ##?/,
-                  /^`part /,
                   /^`part$/,
-                  /^`plsgo /,
                   /^`plsgo$/,
                   /^`help /,
                   /^`help$/,
@@ -37,6 +35,12 @@ command_prefix = [
                   /^`act /,
                   /^`list channels$/
                  ]
+
+def warn(name)
+      bot.notice(name, "You are not in the admin list, please contact an admin for help.")
+      bot.notice(name, "admins:")
+      admins.each { |a| bot.notice(name, "  ↪ #{a}") }
+end
 
 # based on message.message_regex(command_prefix[i]) call appropriate functions
 # returns true if any functions were used
@@ -54,19 +58,48 @@ def commands(message)
 end
 
 def info
-
+      bot.notice(msg.nick, "this is an instance of the Husk irc bot. instance nick: #{bot.nicl_name}")
+      bot.notice(msg.nick, "  ↪ is a modular/plugable irc bot with a reloadable core")
+      bot.notice(msg.nick, "  ↪ is a fully configurable irc bot with ssl and server pass support")
+      bot.notice(msg.nick, "  ↪ is based on the rirc framework (https://github.com/The-Duchess/ruby-irc-framework)")
+      bot.notice(msg.nick, "  ↪ is open source under the MIT license")
+      bot.notice(msg.nick, "  ↪ can be found here https://github.com/The-Duchess/husk")
 end
 
 def join(message)
 
+      if !admins.include? message.nick
+            warn(message.nick)
+            return
+      end
+
+      tokens = message.message.split(" ")
+
+      if !tokens[1].to_s.match("/^#/") then bot.notice(message.nick, "#{tokens[1] is an invalid channel name}"); return; end
+
+      bot.join("#{tokens[1]}")
 end
 
 def part(message)
 
+      if !admins.include? message.nick
+            warn(message.nick)
+            return
+      end
+
+      bot.part(message.channel, "")
 end
 
 def quit(message)
 
+      if !admins.include? message.nick
+            warn(message.nick)
+            return
+      end
+
+      bot.quit("")
+
+      abort
 end
 
 def help(message)
