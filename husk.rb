@@ -85,9 +85,6 @@ end
 puts "Creating Backlog"
 backlog = []
 
-load 'commands.rb'
-puts "Loaded Core"
-
 # the main loop for the socket
 puts "Starting #{bot.nick_name}"
 
