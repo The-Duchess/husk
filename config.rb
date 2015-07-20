@@ -71,7 +71,7 @@ module Config_var
             @ignore_list = []
 
             # list of plugins to load
-            @plugins_list = ["cat.rb", "youtube.rb"]
+            @plugins_list = ["update.rb", "stats.rb", "youtube.rb", "urbdict.rb"]
 
             # file path to plugin directory
             @plugin_dir = "./plugins"
