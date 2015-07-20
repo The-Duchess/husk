@@ -90,7 +90,7 @@ def main
       	puts plug.plugin_load(a)
       end
 
-      puts "Creating Backlog... "
+      print "Creating Backlog... "
       STDOUT.flush
       backlog = []
       puts "done"
