@@ -55,7 +55,7 @@ def main
 
       if configs.use_pass
             bot.connect_pass(configs.pass)
-            puts "Connecting Using a password, #{pass}"
+            puts "Connecting Using a password, #{configs.pass}"
       end
 
       to_ignore = []
