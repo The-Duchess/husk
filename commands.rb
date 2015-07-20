@@ -50,7 +50,40 @@ def commands(message)
 
       commands_reg = Regex.union(command_prefix)
       if message.message_regex(commands_reg)
-            # perform one of the commands
+            i = 1
+            command_prefix.each do |a|
+                  if message.message_regex(a)
+                        if i == 1
+                              info(message)
+                        elsif i == 2
+                              join(message)
+                        elsif i == 3
+                              part(message)
+                        elsif i == 4
+                              quit(message)
+                        elsif i == 5
+                              help_plugin(message)
+                        elsif i == 6
+                              help(message)
+                        elsif i == 7
+                              load_p(message)
+                        elsif i == 8
+                              unload(message)
+                        elsif i == 9
+                              reload(message)
+                        elsif i == 10
+                              list_plugins(message)
+                        elsif i == 11
+                              list_channels(message)
+                        elsif i == 12
+                              list_admins(message)
+                        else
+                              # oh shit
+                        end
+                  end
+
+                  i = i + 1
+            end
       else
             return false
       end
@@ -58,7 +91,7 @@ def commands(message)
       return true
 end
 
-def info
+def info(msg)
       bot.notice(msg.nick, "this is an instance of the Husk irc bot. instance nick: #{bot.nicl_name}")
       bot.notice(msg.nick, "  ↪ is a modular/plugable irc bot with a reloadable core")
       bot.notice(msg.nick, "  ↪ is a fully configurable irc bot with ssl and server pass support")
@@ -122,7 +155,7 @@ def help(message)
       bot.notice(message.nick, "  ↪ `list : lists active plugins by name")
 end
 
-def load(message)
+def load_p(message)
 
       if !admins.include? message.nick
             warn(message.nick)
@@ -166,6 +199,23 @@ def list_plugins(message)
       plug.get_names.each { |a| bot.notice(message.nick, "  ↪ #{a}") }
 end
 
+def list_channels(message)
+
+      if bot.channels.length == 0 then bot.notice(message.nick, "#{bot.nick_name} is not in any channels"); return; end
+
+      bot.notice(message.nick, "Active Chans")
+      bot.channels.each { |a| bot.notice(message.nick, "  ↪ #{a}") }
+
+end
+
+def list_admins
+
+      if bot.admins.length == 0 then bot.notice(message.nick, "#{bot.nick_name} does not have any admins"); return; end
+
+      bot.notice(message.nick, "Admins")
+      bot.admins.each { |a| bot.notice(message.nick, "  ↪ #{a}") }
+end
+
 #def ignore(message)
 
 #end
@@ -185,20 +235,3 @@ end
 #def send_act(message)
 
 #end
-
-def list_channels(message)
-
-      if bot.channels.length == 0 then bot.notice(message.nick, "#{bot.nick_name} is not in any channels"); return; end
-
-      bot.notice(message.nick, "Active Chans")
-      bot.channels.each { |a| bot.notice(message.nick, "  ↪ #{a}") }
-
-end
-
-def list_admins
-
-      if bot.admins.length == 0 then bot.notice(message.nick, "#{bot.nick_name} does not have any admins"); return; end
-
-      bot.notice(message.nick, "Admins")
-      bot.admins.each { |a| bot.notice(message.nick, "  ↪ #{a}") }
-end
