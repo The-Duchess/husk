@@ -107,7 +107,7 @@ def main
       	msg = bot.parse(ircmsg)
 
             if msg.channel == msg.nick
-                  File.write("./log", ircmsg, File.size("./res/log"), mode: 'a')
+                  File.write("./log", ircmsg, File.size("./log"), mode: 'a')
             end
 
       	if ircmsg == "PING" or bot.nick_name == msg.nick or bot.ignore.include? msg.nick
