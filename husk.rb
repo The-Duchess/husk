@@ -13,6 +13,10 @@
 require_relative 'rirc.rb'
 require_relative 'config.rb'
 
+class Config_obj
+      include Config_var
+end
+
 def main
 
       # regexes used to call command functions
@@ -37,10 +41,6 @@ def main
                        #/^`list ignore/,
                        #/^`msg /,
                        #/^`act /,
-
-      class Config_obj
-            include Config_var
-      end
 
       configs = Config_obj.new
 
