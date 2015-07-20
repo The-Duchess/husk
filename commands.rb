@@ -40,7 +40,7 @@ module Command_mod
       def warn(name, bot)
             bot.notice(name, "You are not in the admin list, please contact an admin for help.")
             bot.notice(name, "admins:")
-            admins.each { |a| bot.notice(name, "  ↪ #{a}") }
+            bot.admins.each { |a| bot.notice(name, "  ↪ #{a}") }
       end
 
       def commands(message, bot, plug)
