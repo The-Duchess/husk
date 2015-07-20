@@ -104,7 +104,7 @@ def main
       	ircmsg = bot.read
       	msg = bot.parse(ircmsg)
 
-      	if ircmsg == "PING" or bot.nick_name == msg.nick or bot.include? msg.nick
+      	if ircmsg == "PING" or bot.nick_name == msg.nick or bot.ignore.include? msg.nick
       		next
       	else
                   if msg.message_regex(/^`core refresh$/) and msg.nick == configs.dev_admin
