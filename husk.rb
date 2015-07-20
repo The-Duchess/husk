@@ -15,7 +15,7 @@ require_relative 'config.rb'
 
 # regexes used to call command functions
 # unless you are going to add command functions to commands do not touch this
-command_prefix = [
+$command_prefix = [
                   /^`info$/,
                   /^`join ##?/,
                   /^`part$/,
@@ -121,7 +121,7 @@ end
 # returns true if any functions were used
 def commands(message)
 
-      commands_reg = Regexp.union(command_prefix)
+      commands_reg = Regexp.union($command_prefix)
       if message.message_regex(commands_reg)
             i = 1
             configs.command_prefix.each do |a|
