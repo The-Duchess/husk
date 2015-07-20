@@ -34,7 +34,7 @@ def main
       print "creating the core... "
       STDOUT.flush
       cmds = Command_obj.new
-      puts.done
+      puts "done"
 
       # create the plugin manager and tell it where to look for plugins
       print "creating plugin manager... "
