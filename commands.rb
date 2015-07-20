@@ -37,6 +37,12 @@ module Command_mod
                              #/^`act /,
       end
 
+      def warn(name, bot)
+            bot.notice(name, "You are not in the admin list, please contact an admin for help.")
+            bot.notice(name, "admins:")
+            admins.each { |a| bot.notice(name, "  ↪ #{a}") }
+      end
+
       def commands(message, bot, plug)
 
             commands_reg = Regexp.union(@command_prefix)

@@ -99,12 +99,6 @@ def main
       # the main loop for the socket
       puts "Starting #{bot.nick_name}"
 
-      def warn(name, bot)
-            bot.notice(name, "You are not in the admin list, please contact an admin for help.")
-            bot.notice(name, "admins:")
-            admins.each { |a| bot.notice(name, "  ↪ #{a}") }
-      end
-
       # based on message.message_regex(command_prefix[i]) call appropriate functions
       # returns true if any functions were used
 
