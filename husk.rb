@@ -100,7 +100,7 @@ def main
       # based on message.message_regex(command_prefix[i]) call appropriate functions
       # returns true if any functions were used
 
-      `touch log`
+      `touch ./log`
 
       until bot.socket.eof? do
       	ircmsg = bot.read
@@ -118,11 +118,11 @@ def main
                         load 'commands.rb'
                         cmds = Command_obj.new
                         bot.notice(msg.nick, "Core Reloaded")
-                        File.write("./log", ircmsg, File.size("./res/log"), mode: 'a')
+                        File.write("./log", ircmsg, File.size("./log"), mode: 'a')
                         next
                   end
 
-                  if cmds.commands(msg, bot, plug) then File.write("./log", ircmsg, File.size("./res/log"), mode: 'a'); next; end
+                  if cmds.commands(msg, bot, plug) then File.write("./log", ircmsg, File.size("./log"), mode: 'a'); next; end
 
                   responses = plug.check_all(msg, bot.admins, backlog)
 
