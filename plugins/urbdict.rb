@@ -7,9 +7,7 @@
 require 'cgi'
 require 'json'
 require 'open-uri'
-
-$LOAD_PATH << './module'
-require '.pluginf.rb'
+load 'rirc.rb'
 
 class UrbDict < Pluginf
 	#any functions you may need
@@ -90,4 +88,4 @@ description = "`ud <search criteria> gets a result from urban dictionary" # desc
 
 # plugin = Class_name.new(regex, name, file_name, help)
 # this temporary global is used for handing the new plugin back to the bot
-$temp_plugin = Template.new(reg, pluginname, filename, description)
+$temp_plugin = UrbDict.new(reg, pluginname, filename, description)
