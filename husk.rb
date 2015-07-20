@@ -129,7 +129,7 @@ def main
                   command_prefix.each do |a|
                         if message.message_regex(a)
                               if i == 1
-                                    info(message, bot)
+                                    info_g(message, bot)
                               elsif i == 2
                                     join(message, bot)
                               elsif i == 3
@@ -139,7 +139,7 @@ def main
                               elsif i == 5
                                     help_plugin(message, bot, plug)
                               elsif i == 6
-                                    help(message, bot)
+                                    help_g(message, bot)
                               elsif i == 7
                                     load_p(message, bot, plug)
                               elsif i == 8
@@ -166,7 +166,7 @@ def main
             return true
       end
 
-      def info(msg, bot)
+      def info_g(msg, bot)
             bot.notice(msg.nick, "this is an instance of the Husk irc bot. instance nick: #{bot.nicl_name}")
             bot.notice(msg.nick, "  ↪ is a modular/plugable irc bot")
             bot.notice(msg.nick, "  ↪ is a fully configurable irc bot with ssl and server pass support")
@@ -223,7 +223,7 @@ def main
             end
       end
 
-      def help(message, bot)
+      def help_g(message, bot)
             bot.notice(message.nick, "commands")
             bot.notice(message.nick, "  ↪ `help <plugin name> : help on the plugin")
             bot.notice(message.nick, "  ↪ `info : for information on the bot")
