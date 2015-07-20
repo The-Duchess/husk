@@ -339,7 +339,7 @@ class Plugin_manager
 		get_plugin(name).cleanup
 		@plugins.delete_if { |a| a.name == name }
 
-		"plugin #{name} unloaded"
+		return "plugin #{name} unloaded"
 	end
 
 	# reload
