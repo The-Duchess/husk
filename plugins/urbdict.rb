@@ -13,8 +13,6 @@ load 'rirc.rb'
 class UrbDict < Pluginf
 	#any functions you may need
 	#retrieves the first description
-	begin
-		http = Net::HTTP.new()
 
 	#your definition for script
 	def script(message, admins, backlog)
