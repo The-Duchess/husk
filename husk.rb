@@ -98,7 +98,7 @@ end
 # returns true if any functions were used
 def commands(message)
 
-      commands_reg = Regex.union(configs.command_prefix)
+      commands_reg = Regexp.union(configs.command_prefix)
       if message.message_regex(commands_reg)
             i = 1
             configs.command_prefix.each do |a|
