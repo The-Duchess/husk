@@ -50,6 +50,9 @@ channels = ["#YOURCHANNEL"]
 # list of admins by nick
 admins = ["YOURNICK", "YOUROTHERNICK"]
 
+# list of ignored nicks
+ignore_list = []
+
 # list of plugins to load
 plugins_list = ["cat.rb", "youtube.rb"]
 

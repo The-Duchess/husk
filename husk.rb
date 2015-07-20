@@ -77,7 +77,7 @@ until bot.socket.eof? do
 	ircmsg = bot.read
 	msg = bot.parse(ircmsg)
 
-	if ircmsg == "PING" or bot.nick_name == msg.nick
+	if ircmsg == "PING" or bot.nick_name == msg.nick or ignore_list.include? msg.nick
 		next
 	else
             if msg.message_regex(/^`core refresh$/) and msg.nick == dev_admin
