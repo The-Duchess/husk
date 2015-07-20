@@ -64,7 +64,7 @@ puts "Authenticated with"
 puts "	↪ nick = #{bot.nick_name}"
 puts "	↪ username = #{bot.user_name}"
 puts "	↪ realname = #{bot.real_name}"
-puts "	↪ identifying with #{nickserv_pass}"
+puts "	↪ identifying with #{configs.nickserv_pass}"
 
 # joining channels
 puts "Joining"
