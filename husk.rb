@@ -167,7 +167,7 @@ def main
       end
 
       def info_g(msg, bot)
-            bot.notice(msg.nick, "this is an instance of the Husk irc bot. instance nick: #{bot.nicl_name}")
+            bot.notice(msg.nick, "this is an instance of the Husk irc bot. instance nick: #{bot.nick_name}")
             bot.notice(msg.nick, "  ↪ is a modular/plugable irc bot")
             bot.notice(msg.nick, "  ↪ is a fully configurable irc bot with ssl and server pass support")
             bot.notice(msg.nick, "  ↪ is based on the rirc framework (https://github.com/The-Duchess/ruby-irc-framework)")
