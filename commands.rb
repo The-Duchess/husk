@@ -42,6 +42,15 @@ command_prefix = [
 # returns true if any functions were used
 def commands(message)
 
+      commands_reg = Regex.union(command_prefix)
+      if message.message_regex(commands_reg)
+            # perform one of the commands
+      else
+            return false
+      end
+
+      return true
+
 end
 
 def info
