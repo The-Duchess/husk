@@ -21,6 +21,7 @@ class UrbDict < Pluginf
 		@srh = ""
 		@rt = ""
 		message.message[4..-1].split(" ").each { |a| @srh.concat("#{a.to_s}+")}
+		@srh = @srh[0..-2].to_s
 		uri = "http://api.urbandictionary.com/v0/define?term=%s" % @srh
 
 		begin
@@ -46,13 +47,12 @@ class UrbDict < Pluginf
 		i = 0
 		0.upto(len_a) do |a|
 			if @rt.length <= len
-				#@parts.push(@rt.to_s)
 				return @rt.to_s
 			end
 
 			if(@rt[a..-1].to_s.length <= len)
-				p "should be back"
-				p @rt[((len * a) + i)..-1].to_s
+				# p "should be back"
+				# p @rt[((len * a) + i)..-1].to_s
 				@parts.push(@rt[((len * a) + i)..-1])
 				break
 			end

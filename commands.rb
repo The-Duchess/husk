@@ -27,10 +27,7 @@ module Command_mod
                               /^`reload /,
                               /^`list$/,
                               /^`list channels$/,
-                              /^`list admins$/,
-                              /^`ignore /,
-                              /^`unignore /,
-                              /^`list ignore/
+                              /^`list admins$/
                              ]
 
                              #/^`ignore /,
@@ -103,7 +100,7 @@ module Command_mod
       def join(message, bot)
 
             if !bot.admins.include? message.nick
-                  warn(message.nick)
+                  warn(message.nick, bot)
                   return
             end
 
@@ -118,7 +115,7 @@ module Command_mod
       def part(message, bot)
 
             if !bot.admins.include? message.nick
-                  warn(message.nick)
+                  warn(message.nick, bot)
                   return
             end
 
@@ -128,7 +125,7 @@ module Command_mod
       def quit(message, bot)
 
             if !bot.admins.include? message.nick
-                  warn(message.nick)
+                  warn(message.nick, bot)
                   return
             end
 
@@ -158,7 +155,7 @@ module Command_mod
       def load_p(message, bot, plug)
 
             if !bot.admins.include? message.nick
-                  warn(message.nick)
+                  warn(message.nick, bot)
                   return
             end
 
@@ -170,7 +167,7 @@ module Command_mod
       def unload(message, bot, plug)
 
             if !bot.admins.include? message.nick
-                  warn(message.nick)
+                  warn(message.nick, bot)
                   return
             end
 
@@ -182,7 +179,7 @@ module Command_mod
       def reload(message, bot, plug)
 
             if !bot.admins.include? message.nick
-                  warn(message.nick)
+                  warn(message.nick, bot)
                   return
             end
 
@@ -216,17 +213,17 @@ module Command_mod
             bot.admins.each { |a| bot.notice(message.nick, "  ↪ #{a}") }
       end
 
-      def ignore(message, bot)
+      #def ignore(message)
 
-      end
+      #end
 
-      def unignore(message, bot)
+      #def unignore(message)
 
-      end
+      #end
 
-      def list_ignore(message, bot)
+      #def list_ignore(message)
 
-      end
+      #end
 
       #def send_msg(message)
 
