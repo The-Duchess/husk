@@ -68,8 +68,9 @@ plugins_list.each do |a|
 end
 
 load 'commands.rb'
+puts "Loaded Core"
 
-puts "starting bot"
+puts "Starting #{bot.nick_name}"
 
 until bot.socket.eof? do
 	ircmsg = bot.read
@@ -80,6 +81,7 @@ until bot.socket.eof? do
 	else
             if msg.message_regex(/^`core refresh$/) and msg.nick == dev_admin
                   load 'commands.rb'
+                  bot.notice(msg.nick, "Core Reloaded")
                   next
             end
 
