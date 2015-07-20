@@ -21,7 +21,7 @@ def main
 
       # regexes used to call command functions
       # unless you are going to add command functions to commands do not touch this
-      command_prefix = [
+      $command_prefix = [
                         /^`info$/,
                         /^`join ##?/,
                         /^`part$/,
@@ -113,7 +113,7 @@ def main
       # the main loop for the socket
       puts "Starting #{bot.nick_name}"
 
-      def warn(name)
+      def warn(name, bot)
             bot.notice(name, "You are not in the admin list, please contact an admin for help.")
             bot.notice(name, "admins:")
             admins.each { |a| bot.notice(name, "  ↪ #{a}") }
@@ -121,7 +121,7 @@ def main
 
       # based on message.message_regex(command_prefix[i]) call appropriate functions
       # returns true if any functions were used
-      def commands(message)
+      def commands(message, bot, plug, command_prefix)
 
             commands_reg = Regexp.union(command_prefix)
             if message.message_regex(commands_reg)
@@ -129,29 +129,29 @@ def main
                   command_prefix.each do |a|
                         if message.message_regex(a)
                               if i == 1
-                                    info(message)
+                                    info(message, bot)
                               elsif i == 2
-                                    join(message)
+                                    join(message, bot)
                               elsif i == 3
-                                    part(message)
+                                    part(message, bot)
                               elsif i == 4
-                                    quit(message)
+                                    quit(message, bot)
                               elsif i == 5
-                                    help_plugin(message)
+                                    help_plugin(message, bot, plug)
                               elsif i == 6
-                                    help(message)
+                                    help(message, bot)
                               elsif i == 7
-                                    load_p(message)
+                                    load_p(message, bot, plug)
                               elsif i == 8
-                                    unload(message)
+                                    unload(message, bot, plug)
                               elsif i == 9
-                                    reload(message)
+                                    reload(message, bot, plug)
                               elsif i == 10
-                                    list_plugins(message)
+                                    list_plugins(message, bot, plug)
                               elsif i == 11
-                                    list_channels(message)
+                                    list_channels(message, bot)
                               elsif i == 12
-                                    list_admins(message)
+                                    list_admins(message, bot)
                               else
                                     # oh shit
                               end
@@ -166,7 +166,7 @@ def main
             return true
       end
 
-      def info(msg)
+      def info(msg, bot)
             bot.notice(msg.nick, "this is an instance of the Husk irc bot. instance nick: #{bot.nicl_name}")
             bot.notice(msg.nick, "  ↪ is a modular/plugable irc bot")
             bot.notice(msg.nick, "  ↪ is a fully configurable irc bot with ssl and server pass support")
@@ -175,7 +175,7 @@ def main
             bot.notice(msg.nick, "  ↪ can be found here https://github.com/The-Duchess/husk")
       end
 
-      def join(message)
+      def join(message, bot)
 
             if !bot.admins.include? message.nick
                   warn(message.nick)
@@ -190,7 +190,7 @@ def main
             # bot.notice("#{tokens[1]}", "hello: for help with this bot use `help")
       end
 
-      def part(message)
+      def part(message, bot)
 
             if !bot.admins.include? message.nick
                   warn(message.nick)
@@ -200,7 +200,7 @@ def main
             bot.part(message.channel, "")
       end
 
-      def quit(message)
+      def quit(message, bot)
 
             if !bot.admins.include? message.nick
                   warn(message.nick)
@@ -212,7 +212,7 @@ def main
             abort
       end
 
-      def help_plugin(message)
+      def help_plugin(message, bot, plug)
 
             tokens = message.message.split(" ")
             help = plug.plugin_help(tokens[1])
@@ -223,14 +223,14 @@ def main
             end
       end
 
-      def help(message)
+      def help(message, bot)
             bot.notice(message.nick, "commands")
             bot.notice(message.nick, "  ↪ `help <plugin name> : help on the plugin")
             bot.notice(message.nick, "  ↪ `info : for information on the bot")
             bot.notice(message.nick, "  ↪ `list : lists active plugins by name")
       end
 
-      def load_p(message)
+      def load_p(message, bot, plug)
 
             if !bot.admins.include? message.nick
                   warn(message.nick)
@@ -242,7 +242,7 @@ def main
             bot.notice(message.nick, response)
       end
 
-      def unload(message)
+      def unload(message, bot, plug)
 
             if !bot.admins.include? message.nick
                   warn(message.nick)
@@ -254,7 +254,7 @@ def main
             bot.privmsg(message.nick, response)
       end
 
-      def reload(message)
+      def reload(message, bot, plug)
 
             if !bot.admins.include? message.nick
                   warn(message.nick)
@@ -266,7 +266,7 @@ def main
             bot.notice(message.nick, response)
       end
 
-      def list_plugins(message)
+      def list_plugins(message, bot, plug)
 
             if plug.get_names.length == 0 then bot.notice(message.nick, "no plugins are loaded"); return; end
 
@@ -274,7 +274,7 @@ def main
             plug.get_names.each { |a| bot.notice(message.nick, "  ↪ #{a}") }
       end
 
-      def list_channels(message)
+      def list_channels(message, bot)
 
             if bot.channels.length == 0 then bot.notice(message.nick, "#{bot.nick_name} is not in any channels"); return; end
 
@@ -283,7 +283,7 @@ def main
 
       end
 
-      def list_admins
+      def list_admins(message, bot)
 
             if bot.admins.length == 0 then bot.notice(message.nick, "#{bot.nick_name} does not have any admins"); return; end
 
@@ -324,7 +324,7 @@ def main
                         next
                   end
 
-                  if commands(msg) then next end
+                  if commands(msg, bot, plug, command_prefix) then next end
 
                   responses = plug.check_all(msg, bot.admins, backlog)
 
