@@ -17,7 +17,7 @@ class Config_obj
       include Config_var
 end
 
-configs = configs.new
+configs = Config_obj.new
 
 # create the bot
 print "creating bot... "
