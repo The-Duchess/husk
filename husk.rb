@@ -124,7 +124,7 @@ def commands(message)
       commands_reg = Regexp.union($command_prefix)
       if message.message_regex(commands_reg)
             i = 1
-            configs.command_prefix.each do |a|
+            $command_prefix.each do |a|
                   if message.message_regex(a)
                         if i == 1
                               info(message)
