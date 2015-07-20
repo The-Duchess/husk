@@ -39,10 +39,10 @@ module Command_mod
 
       def commands(message, bot, plug)
 
-            commands_reg = Regexp.union(command_prefix)
+            commands_reg = Regexp.union(@command_prefix)
             if message.message_regex(commands_reg)
                   i = 1
-                  command_prefix.each do |a|
+                  @command_prefix.each do |a|
                         if message.message_regex(a)
                               if i == 1
                                     info_g(message, bot)
