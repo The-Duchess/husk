@@ -106,7 +106,7 @@ def main
       	ircmsg = bot.read
       	msg = bot.parse(ircmsg)
 
-            if message.channel == message.nick
+            if msg.channel == msg.nick
                   File.write("./log", ircmsg, File.size("./res/log"), mode: 'a')
             end
 
