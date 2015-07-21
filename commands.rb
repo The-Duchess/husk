@@ -34,6 +34,7 @@ module Command_mod
                               /^`nick (\S+)/,
                               /^`admin add (\S+)/,
                               /^`admin del (\S+)/
+                              /^`identify (\S+)/
                              ]
 
                              #/^`msg /,
@@ -89,6 +90,8 @@ module Command_mod
                                     admin_add(message, bot)
                               elsif i == 18
                                     admin_del(message, bot)
+                              elsif i == 19
+                                    ident(message, bot)
                               else
                                     # oh shit
                               end
@@ -300,6 +303,18 @@ module Command_mod
             tokens = message.message.split(" ")
             bot.notice(message.nick, "Removing #{tokens[2]} from the admins")
             bot.remove_admin(tokens[2].to_s)
+      end
+
+      def ident(message, bot)
+
+            if !bot.admins.include? message.nick
+                  warn(message.nick, bot)
+                  return
+            end
+
+            tokens = message.message.split(" ")
+            bot.notice(message.nick, "Identifying as #{bot.nick_name} with nickserv pass #{tokens[1]}")
+            bot.identify(tokens[1].to_s)
       end
 
       #def send_msg(message)
