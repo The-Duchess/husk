@@ -145,6 +145,8 @@ def main
                   responses = plug.check_all(msg, bot.admins, backlog)
 
       		responses.each { |a| if a != "" then bot.say(a) end }
+
+                  next
             end
       end
 end
