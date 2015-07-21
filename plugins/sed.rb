@@ -61,9 +61,10 @@ class Sed_sr < Pluginf
 				@m = @m[0..-2].to_s
 			else
 				@r = "「#{backlog[i].nick}」 "
+				@m = backlog[i].message
 			end
 
-			if backlog[i].message_regex(sed_a) and backlog[i].channel == message.channel then
+			if @m.match(sed_a) and backlog[i].channel == message.channel then
 				included = true
 				string_a = @m
 				nick_a = backlog[i].nick
