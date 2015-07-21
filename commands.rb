@@ -126,7 +126,7 @@ module Command_mod
 
             if !tokens[1].to_s.match(/^##?/) then bot.notice(message.nick, "#{tokens[1]} is an invalid channel name"); return; end
 
-            bot.join("#{tokens[1]}")
+            bot.join(tokens[1])
             # bot.notice("#{tokens[1]}", "hello: for help with this bot use `help")
       end
 
