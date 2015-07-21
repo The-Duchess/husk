@@ -144,7 +144,17 @@ def main
 
                   responses = plug.check_all(msg, bot.admins, backlog)
 
-      		responses.each { |a| if a != "" then bot.say(a) end }
+      		responses.each do |a|
+                        if a != "" then
+                              if a.include? "\n"
+                                    a.split("\n").each { |i| bot.say(i) }
+                              else
+                                    bot.say(a)
+                              end
+                        else
+                              next
+                        end
+                  end
 
                   next
             end
