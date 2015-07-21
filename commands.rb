@@ -33,7 +33,7 @@ module Command_mod
                               /^`list ignore/,
                               /^`nick (\S+)/,
                               /^`admin add (\S+)/,
-                              /^`admin del (\S+)/
+                              /^`admin del (\S+)/,
                               /^`identify (\S+)/
                              ]
 
