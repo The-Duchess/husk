@@ -7,7 +7,7 @@
 require 'cgi'
 require 'json'
 require 'open-uri'
-require 'openssl'
+
 load 'rirc.rb'
 
 class UrbDict < Pluginf
