@@ -81,7 +81,7 @@ module Command_mod
                                     unignore(message, bot)
                               elsif i == 15
                                     list_ignore(message, bot)
-                              elsif i == 15
+                              elsif i == 16
                                     nick_change(message, bot)
                               else
                                     # oh shit
