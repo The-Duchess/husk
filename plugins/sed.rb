@@ -16,7 +16,7 @@ class Sed_sr < Pluginf
 
 		msg_l = message.message.length.to_i - 1
 		temp_sa = ""
-		temp_sb
+		temp_sb = ""
 
 		i = 0
 		2.upto(msg_l) do |a|
