@@ -31,7 +31,9 @@ module Command_mod
                               /^`ignore (\S+)/,
                               /^`unignore (\S+)/,
                               /^`list ignore/,
-                              /^`nick (\S+)/
+                              /^`nick (\S+)/,
+                              /^`admin add (\S+)/,
+                              /^`admin del (\S+)/
                              ]
 
                              #/^`msg /,
@@ -83,6 +85,10 @@ module Command_mod
                                     list_ignore(message, bot)
                               elsif i == 16
                                     nick_change(message, bot)
+                              elsif i == 17
+                                    admin_add(message, bot)
+                              elsif i == 18
+                                    admin_del(message, bot)
                               else
                                     # oh shit
                               end
@@ -270,6 +276,30 @@ module Command_mod
 
             bot.notice(message.nick, "Changing bot nick from #{bot.nick_name} to #{tokens[1]}")
             bot.nick(tokens[1].to_s)
+      end
+
+      def admin_add(message, bot)
+
+            if !bot.admins.include? message.nick
+                  warn(message.nick, bot)
+                  return
+            end
+
+            tokens = message.message.split(" ")
+            bot.notice(message.nick, "Adding #{tokens[2]} to the admins")
+            bot.add_admin(tokens[2].to_s)
+      end
+
+      def admin_del(message, bot)
+
+            if !bot.admins.include? message.nick
+                  warn(message.nick, bot)
+                  return
+            end
+
+            tokens = message.message.split(" ")
+            bot.notice(message.nick, "Removing #{tokens[2]} from the admins")
+            bot.remove_admin(tokens[2].to_s)
       end
 
       #def send_msg(message)
