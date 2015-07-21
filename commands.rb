@@ -268,7 +268,7 @@ module Command_mod
 
             tokens = message.message.split(" ")
 
-            bot.notice(message.nick, "Changing bot nick from #{bot.nick} to #{tokens[1]}")
+            bot.notice(message.nick, "Changing bot nick from #{bot.nick_name} to #{tokens[1]}")
             bot.nick(tokens[1].to_s)
       end
 
