@@ -23,7 +23,7 @@ class Sed_sr < Pluginf
 			if message.message[a] == "/" and message.message[a - 1] != "\\"
 				break
 			else
-				temp.sa.concat(message.message[a])
+				temp_sa.concat(message.message[a])
 				i = i + 1
 			end
 		end
