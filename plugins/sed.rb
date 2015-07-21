@@ -53,7 +53,7 @@ class Sed_sr < Pluginf
 		@r = ""
 		@m = ""
 
-		(backlog.length - 1).downto(0) do |i|
+		(backlog.length - 2).downto(0) do |i|
 			if backlog[i].message_regex(/^ACTION /)
 				@r = "» #{backlog[i].nick} "
 				tokens = backlog[i].message.split(" ")
