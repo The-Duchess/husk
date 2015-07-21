@@ -8,7 +8,7 @@
 
 load 'rirc.rb'
 
-class Template < Pluginf
+class Sed_sr < Pluginf
 
 	def script(message, admins, backlog)
 
@@ -108,9 +108,9 @@ end
 
 
 # information the plugin needs to be initialized with
-reg = // # regex to call the plugin
+reg = /(^s\/(.*)\/(.*)\/(\w)?)/ # regex to call the plugin
 filename = "sed.rb" # file name
 pluginname = "sed" # name for plugin
 description = "provides sed style search replace with backreferences" # description and or help
 
-$temp_plugin = Template.new(reg, pluginname, filename, description)
+$temp_plugin = Sed_sr.new(reg, pluginname, filename, description)
