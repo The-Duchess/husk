@@ -20,17 +20,18 @@ module Command_mod
                               /^`join ##?/,
                               /^`part$/,
                               /^`plsgo$/,
-                              /^`help /,
+                              /^`help (\S+)/,
                               /^`help$/,
-                              /^`load /,
-                              /^`unload /,
-                              /^`reload /,
+                              /^`load (\S+)/,
+                              /^`unload (\S+)/,
+                              /^`reload (\S+)/,
                               /^`list$/,
                               /^`list channels$/,
                               /^`list admins$/,
-                              /^`ignore /,
-                              /^`unignore /,
-                              /^`list ignore/
+                              /^`ignore (\S+)/,
+                              /^`unignore (\S+)/,
+                              /^`list ignore/,
+                              /^`nick (\S+)/
                              ]
 
                              #/^`msg /,
@@ -80,6 +81,8 @@ module Command_mod
                                     unignore(message, bot)
                               elsif i == 15
                                     list_ignore(message, bot)
+                              elsif i == 15
+                                    nick_change(message, bot)
                               else
                                     # oh shit
                               end
@@ -254,6 +257,19 @@ module Command_mod
 
             bot.notice(message.nick, "List of Ignored Users")
             bot.ignore.each { |a| bot.notice(message.nick, "  ↪ #{a}") }
+      end
+
+      def nick_change(message, bot)
+
+            if !bot.admins.include? message.nick
+                  warn(message.nick, bot)
+                  return
+            end
+
+            tokens = message.message.split(" ")
+
+            bot.notice(message.nick, "Changing bot nick from #{bot.nick} to #{tokens[1]}")
+            bot.nick(tokens[1].to_s)
       end
 
       #def send_msg(message)
