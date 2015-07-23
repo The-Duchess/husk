@@ -101,7 +101,7 @@ module Command_mod
                                     ident(message, bot)
                               elsif i == 20
                                     auto_join_on(message, bot)
-                              elsif i == 20
+                              elsif i == 21
                                     auto_join_off(message, bot)
                               else
                                     # oh shit
