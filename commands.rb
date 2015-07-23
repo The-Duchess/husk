@@ -34,11 +34,13 @@ module Command_mod
                               /^`nick (\S+)/,
                               /^`admin add (\S+)/,
                               /^`admin del (\S+)/,
-                              /^`identify (\S+)/
+                              /^`identify (\S+)/,
+                              /^`autojoin on$/,
+                              /^`autojoin off$/,
                              ]
 
-                             #/^`msg /,
-                             #/^`act /,
+
+            @auto_join = false
       end
 
       def warn(name, bot)
@@ -48,6 +50,12 @@ module Command_mod
       end
 
       def commands(message, bot, plug)
+
+            if @auto_join and message.check_regex("channel", /#{bot.nick_name}$/) and message.command = "KICK"
+                  sleep(.5)
+                  bot.join(message.channel.split(" ")[0].to_s)
+                  return
+            end
 
             commands_reg = Regexp.union(@command_prefix)
             if message.message_regex(commands_reg)
@@ -92,6 +100,10 @@ module Command_mod
                                     admin_del(message, bot)
                               elsif i == 19
                                     ident(message, bot)
+                              elsif i == 20
+                                    auto_join_on
+                              elsif i == 20
+                                    auto_join_off
                               else
                                     # oh shit
                               end
@@ -315,6 +327,14 @@ module Command_mod
             tokens = message.message.split(" ")
             bot.notice(message.nick, "Identifying as #{bot.nick_name} with nickserv pass #{tokens[1]}")
             bot.identify(tokens[1].to_s)
+      end
+
+      def auto_join_on
+            @auto_join = true
+      end
+
+      def auto_join_off
+            @auto_join = false
       end
 
       #def send_msg(message)
