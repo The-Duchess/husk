@@ -300,8 +300,9 @@ module Command_mod
             end
 
             tokens = message.message.split(" ")
-            bot.notice(message.nick, "Adding #{tokens[2]} to the admins")
             bot.add_admin(tokens[2].to_s)
+            bot.notice(message.nick, "Adding #{tokens[2]} to the admins")
+            bot.notice(tokens[2], "You have been added to the admins")
       end
 
       def admin_del(message, bot)
@@ -312,8 +313,9 @@ module Command_mod
             end
 
             tokens = message.message.split(" ")
-            bot.notice(message.nick, "Removing #{tokens[2]} from the admins")
             bot.remove_admin(tokens[2].to_s)
+            bot.notice(message.nick, "Removing #{tokens[2]} from the admins")
+            bot.notice(tokens[2].to_s, "You have been added to the admins")
       end
 
       def ident(message, bot)
