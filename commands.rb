@@ -51,7 +51,7 @@ module Command_mod
 
       def commands(message, bot, plug)
 
-            if @auto_join and message.check_regex("channel", /#{bot.nick_name}$/) and message.command = "KICK"
+            if @auto_join and message.check_regex("channel", /#{bot.nick_name}$/) and message.command == "KICK"
                   bot.join(message.channel.split(" ")[0].to_s)
                   return
             end
