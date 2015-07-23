@@ -100,9 +100,9 @@ module Command_mod
                               elsif i == 19
                                     ident(message, bot)
                               elsif i == 20
-                                    auto_join_on
+                                    auto_join_on(message, bot)
                               elsif i == 20
-                                    auto_join_off
+                                    auto_join_off(message, bot)
                               else
                                     # oh shit
                               end
@@ -328,12 +328,14 @@ module Command_mod
             bot.identify(tokens[1].to_s)
       end
 
-      def auto_join_on
+      def auto_join_on(message, bot)
             @auto_join = true
+            bot.notice(message.nick, "autojoin is on")
       end
 
-      def auto_join_off
+      def auto_join_off(message, bot)
             @auto_join = false
+            bot.notice(message.nick, "autojoin is off")
       end
 
       #def send_msg(message)
