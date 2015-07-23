@@ -315,7 +315,7 @@ module Command_mod
             tokens = message.message.split(" ")
             bot.remove_admin(tokens[2].to_s)
             bot.notice(message.nick, "Removing #{tokens[2]} from the admins")
-            bot.notice(tokens[2].to_s, "You have been added to the admins")
+            bot.notice(tokens[2].to_s, "You have been removed to the admins")
       end
 
       def ident(message, bot)
