@@ -64,7 +64,7 @@ module Command_mod
             # names list
             if message.command == "353"
                   @nicks = message.message.split(" ")
-                  @nicks.each { |a| if a.match(/^[@~%\+\&\$]/) then a = a[1..-1].to_s end }
+                  @nicks.each { |a| if a.match(/^[\@~%\+\&\$]/) then a = a[1..-1].to_s end }
                   bot.notice(@temp_names_nick, "Nick Names: ")
                   @nicks.each { |a| bot.notice(@temp_names_nick, "  ↪ #{a}") }
             end
@@ -381,7 +381,10 @@ module Command_mod
             1.upto(tokens.length - 1) { |i| message.concat("#{tokens[i]} ") }
             message = message[0..-2]
 
-            @nicks.each { |a| bot.notice(a, message) }
+            @nicks.each do |a|
+                  if a.match(/Chanserv$/) then next end
+                  bot.notice(a, message)
+            end
       end
 
       #def send_msg(message)
