@@ -382,7 +382,7 @@ module Command_mod
             message = message[0..-2]
 
             @nicks.each do |a|
-                  if a.match(/Chanserv$/) then next end
+                  if a.match(/Chanserv$/) or a == bot.nick_name then next end
                   bot.notice(a, message)
             end
       end
