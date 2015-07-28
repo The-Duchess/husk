@@ -37,6 +37,7 @@ module Command_mod
                               /^`identify (\S+)/,
                               /^`autojoin on$/,
                               /^`autojoin off$/,
+                              /^`names (\S+)/
                              ]
 
 
@@ -103,6 +104,8 @@ module Command_mod
                                     auto_join_on(message, bot)
                               elsif i == 21
                                     auto_join_off(message, bot)
+                              elsif i == 22
+                                    names(message, bot)
                               else
                                     # oh shit
                               end
@@ -338,6 +341,17 @@ module Command_mod
       def auto_join_off(message, bot)
             @auto_join = false
             bot.notice(message.nick, "autojoin is off")
+      end
+
+      def names(message, bot)
+
+            if !bot.admins.include? message.nick
+                  warn(message.nick, bot)
+                  return
+            end
+
+            tokens = message.message.split(" ")
+            bot.say("NAMES #{tokens[1]}")
       end
 
       #def send_msg(message)
