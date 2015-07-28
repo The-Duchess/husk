@@ -351,7 +351,7 @@ module Command_mod
             end
 
             tokens = message.message.split(" ")
-            bot.say("NAMES #{tokens[1]}")
+            bot.names(tokens[1])
       end
 
       #def send_msg(message)
