@@ -64,7 +64,7 @@ module Command_mod
             # names list
             if message.command = "353"
                   @nicks = message.message.split(" ")
-                  @nicks.each { |a| if a.match(/^[@~%+&]/) then a = a[1..-1].to_s }
+                  @nicks.each { |a| if a.match(/^[@~%+&]/) then a = a[1..-1].to_s end }
                   bot.notice(@temp_names_nick, "Nick Names: ")
                   @nicks.each { |a| bot.notice(@temp_names_nick, "  ↪ #{a}") }
             end
