@@ -37,11 +37,14 @@ module Command_mod
                               /^`identify (\S+)/,
                               /^`autojoin on$/,
                               /^`autojoin off$/,
-                              /^`names (\S+)/
+                              /^`names (\S+)/,
+                              /^`spam (\S+)/
                              ]
 
 
             @auto_join = false
+            @nicks = []
+            @temp_names_nick = ""
       end
 
       def warn(name, bot)
@@ -52,9 +55,18 @@ module Command_mod
 
       def commands(message, bot, plug)
 
+            # autojoin
             if @auto_join and message.check_regex("channel", /#{bot.nick_name}$/) and message.command == "KICK"
                   bot.join(message.channel.split(" ")[0].to_s)
                   return
+            end
+
+            # names list
+            if message.command = "353"
+                  @nicks = message.message.split(" ")
+                  @nicks.each { |a| if a.match(/^[@~%+&]/) then a = a[1..-1].to_s }
+                  bot.notice(@temp_names_nick, "Nick Names: ")
+                  @nicks.each { |a| bot.notice(@temp_names_nick, "  ↪ #{a}") }
             end
 
             commands_reg = Regexp.union(@command_prefix)
@@ -106,6 +118,8 @@ module Command_mod
                                     auto_join_off(message, bot)
                               elsif i == 22
                                     names(message, bot)
+                              elsif i == 23
+                                    spam(message, bot)
                               else
                                     # oh shit
                               end
@@ -352,6 +366,22 @@ module Command_mod
 
             tokens = message.message.split(" ")
             bot.names(tokens[1])
+            @temp_names_nick = message.nick
+      end
+
+      def spam(message, bot)
+
+            if !bot.admins.include? message.nick
+                  warn(message.nick, bot)
+                  return
+            end
+
+            tokens = message.message.split(" ")
+            message = ""
+            1.upto(tokens.length - 1) { |i| message.concat("#{tokens[i]} ") }
+            message = message[0..-2]
+
+            @nicks.each { |a| bot.notice(a, message) }
       end
 
       #def send_msg(message)
