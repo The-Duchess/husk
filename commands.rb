@@ -65,8 +65,8 @@ module Command_mod
             if message.command == "353"
                   @nicks = message.message.split(" ")
                   @nicks.each { |a| if a.match(/^[\@~%\+\&\$]/) then a = a[1..-1].to_s end }
-                  bot.notice(@temp_names_nick, "Nick Names: ")
-                  @nicks.each { |a| bot.notice(@temp_names_nick, "  ↪ #{a}") }
+                  #bot.notice(@temp_names_nick, "Nick Names: ")
+                  #@nicks.each { |a| bot.notice(@temp_names_nick, "  ↪ #{a}") }
             end
 
             commands_reg = Regexp.union(@command_prefix)
