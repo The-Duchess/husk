@@ -10,11 +10,16 @@ require 'socket'
 require 'openssl'
 
 class IRC_message
-	def initialize(command, nick, channel, message)
+	def initialize(command, nick, channel, message, ircmsg)
 		@command = command
 		@nick = nick
 		@channel = channel
 		@message = message
+		@ircmsg = ircmsg
+	end
+
+	def ircmsg
+		return @ircmsg
 	end
 
 	def message
@@ -377,6 +382,12 @@ class IRCBot
 		@channels = []
 		@admins = []
 		@ignore = []
+		@hooks = {}
+		@backlog = []
+	end
+
+	def backlog
+		return @backlog
 	end
 
 	def ignore
@@ -531,7 +542,7 @@ class IRCBot
 
 		if chan == @nick then chan = nick_n end
 
-		ircmsg = IRC_message.new(command, nick_n, chan, message)
+		ircmsg = IRC_message.new(command, nick_n, chan, message, msg)
 
 		return ircmsg
 	end
@@ -550,5 +561,64 @@ class IRCBot
 
 	def remove_ignore(nick)
 		@ignore.delete_if { |a| a == nick }
+	end
+
+	def on(type, &block)
+		type = type.to_s
+		@hooks[type] ||= []
+		@hooks[type] << block
+	end
+
+	def set_admins(admins_s)
+	      admins_s.each { |a| self.add_admin(a) }
+	end
+
+	def join_channels(channels_s)
+		channels_s.each { |a| self.join(a) }
+	end
+
+	def create_log
+		if !File.exist?("./log")
+			File.open("./log", "w+") { |fw| fw.write("Command and Privmsg LOGS") }
+		end
+	end
+
+	def setup(use_ssl, use_pass, pass, nickserv_pass, channels_s)
+		self.connect
+		if use_ssl then self.connect_ssl end
+		if use_pass then self.connect_pass(pass) end
+		self.auth(nickserv_pass)
+
+		self.create_log
+
+		self.join_channels(channels_s)
+
+		self.on :message do |msg|
+
+			if msg.channel == msg.nick
+				File.write("./log", msg.ircmsg, File.size("./log"), mode: 'a')
+			end
+
+			if !self.nick_name == msg.nick and !self.ignore.include? msg.nick
+				@backlog.push(msg)
+			end
+		end
+
+		self.on :message do |msg|
+			if self.admins.include? msg.nick and msg.message_regex(/^`plsgo$/) then abort end
+		end
+	end
+
+	def start!
+
+	      until self.socket.eof? do
+	      	ircmsg = self.read
+			msg = self.parse(ircmsg)
+
+			if ircmsg == "PING" or self.ignore.include?(msg.nick) then next end
+
+			hooks = @hooks['message']
+			hooks.each { |h| h.call(msg) }
+	      end
 	end
 end
