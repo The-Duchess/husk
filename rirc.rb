@@ -323,6 +323,8 @@ class Plugin_manager
 				response = "#{name[0..-4]} loaded"
 			rescue => e
 				response = "cannot load plugin"
+				puts e
+				puts e.backtrace
 			end
 		else
 			begin
@@ -336,6 +338,8 @@ class Plugin_manager
 				response = "#{name} loaded"
 			rescue => e
 				response = "cannot load plugin"
+				puts e
+				puts e.backtrace
 			end
 		end
 		$LOAD_PATH << './'
