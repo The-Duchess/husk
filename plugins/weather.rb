@@ -424,7 +424,7 @@ class Weather < Pluginf
 		res = ""
 		if response.to_s.include? "\n" then
 			lines = response.split("\n")
-			lines.each { |a| a_t = privmsg(message.channel, a) res.concat("#{a_t}\n")}
+			lines.each { |a| a_t = privmsg(message.channel, a); res.concat("#{a_t}\n"); }
 		else
 			res = privmsg(message.channel, response)
 		end
