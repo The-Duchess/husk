@@ -9,8 +9,7 @@ require 'open-uri'
 require 'json'
 require 'date'
 
-$LOAD_PATH << './module'
-require '.pluginf.rb'
+load 'rirc.rb'
 
 class Weather < Pluginf
 
