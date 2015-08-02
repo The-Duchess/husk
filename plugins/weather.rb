@@ -13,9 +13,10 @@ load 'rirc.rb'
 
 class Weather < Pluginf
 
-	def initialize(regex, name, help)
+	def initialize(regex, name, filename, help)
 		@regexp = Regexp.new(regex.to_s)
 		@name = name.to_s
+		@file_name = file_name.to_s
 		@help = help
 		@chan_list = []
 		@chan_list.push("any")
