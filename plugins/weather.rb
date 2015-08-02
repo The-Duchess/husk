@@ -41,7 +41,7 @@ class Weather < Pluginf
 	end
 
 	def update_user(nick, ac_t)
-		@users[:nick] = ac_t.to_s
+		@users[:nick] << ac_t.to_s
 		return "updated"
 	end
 
