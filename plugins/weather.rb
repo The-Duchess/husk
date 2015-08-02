@@ -25,8 +25,8 @@ class Weather < Pluginf
 		@users = Hash.new
 		@users_s = Array.new
 
-		if not File.exist?("./res/.weather") then
-			`touch ./res/.weather` #if the user list file does not exist then create it
+		if not File.exist?("./.weather") then
+			`touch ./.weather` #if the user list file does not exist then create it
 		end
 
 		p load_users
@@ -58,7 +58,7 @@ class Weather < Pluginf
 
 	def save_users
 		# Write out users to file
-		File.open("./res/.weather", 'w') do |fw|
+		File.open("./.weather", 'w') do |fw|
 			@users_s.each do |a|
 				fw.puts("#{a}:#{@users.fetch(a)}\n")
 			end
@@ -69,7 +69,7 @@ class Weather < Pluginf
 
 	def load_users
 		# Read users from file
-		File.open("./res/.weather", 'r') do |fr|
+		File.open("./.weather", 'r') do |fr|
 			while line = fr.gets
 				line.chomp!
 				# file format
@@ -444,11 +444,11 @@ prefix_s = [
 		/^`fc/
 	     ]
 
-reg_p = Regexp.union(prefix_s) #regex to call the module
+reg = Regexp.union(prefix_s) #regex to call the module
+filename = "weather.rb"
 na = "weather" #name for plugin #same as file name without .rb
 de = "usage: `w areacode or City, State or nick | `ws <nick> <areacode> | `fc nick or nothing" #description
 
 #plugin = Class_name.new(regex, name, help)
 #passed back to the plugins_s array
-plugin = Weather.new(reg_p, na, de)
-$plugins_s.push(plugin)
+$temp_plugin = Weather.new(reg, na, filename, de)
