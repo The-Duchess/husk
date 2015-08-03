@@ -45,3 +45,15 @@ Plugins
 >- require 'multi_json'
 
 >- require 'date'
+
+- [weather](https://github.com/The-Duchess/husk/blob/master/plugins/weather.rb) weather; note requires some libraries and gems
+
+>- require 'net/http'
+
+>- require 'optparse'
+
+>- require 'open-uri'
+
+>- require 'json'
+
+>- require 'date'
