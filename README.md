@@ -8,7 +8,7 @@ Project Name: Husk
 
 Project Description:
 
->Husk is a configurable irc bot using rirc [framework](https://github.com/The-Duchess/ruby-irc-framework)
+>Husk is a configurable irc bot using rirc v 0.3.4 [framework](https://github.com/The-Duchess/ruby-irc-framework)
 
 >- it is configured via a ruby [script](https://github.com/The-Duchess/husk/blob/master/config.rb) file that sets variables for the irc bot
 
